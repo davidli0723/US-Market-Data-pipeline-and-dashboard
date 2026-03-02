@@ -28,7 +28,7 @@ This project provides a complete solution for collecting, processing, and visual
 
 ## 🛠️ Tech Stack
 
-- **Python 3.8+** - Core data pipeline language
+- **Python** - Core data pipeline language
 - **Pandas** - Data manipulation and analysis
 - **PySpark** - Distributed data processing for large-scale stock data ETL
 - **SQL** - Data definition and querying for Dashboard
@@ -48,6 +48,6 @@ This project provides a complete solution for collecting, processing, and visual
 
 You can explore the live dashboard on Databricks to interact with the charts and data:  
 
-[Access US Market Overview Dashboard](https://dbc-d3a625a7-b228.cloud.databricks.com/dashboardsv3/01f115f104da1cbfa38173ad64e13de7/published?o=552389576104321)  
-
 > **Note:** A Databricks account is required to view the dashboard.
+
+[Access US Market Overview Dashboard](https://dbc-d3a625a7-b228.cloud.databricks.com/dashboardsv3/01f115f104da1cbfa38173ad64e13de7/published?o=552389576104321)  
