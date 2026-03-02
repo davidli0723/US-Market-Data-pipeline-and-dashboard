@@ -5,7 +5,7 @@ WITH yearly_dates AS (
         YEAR(date) AS year,
         MIN(date) AS first_day,
         MAX(date) AS last_day
-    FROM yfinance_pipeline_dev.stocks_dataset.stocks_price_history_raw
+    FROM yfinance_pipeline_prod.stocks_dataset.stocks_price_history_raw
     WHERE date >= '2000-01-01'
     GROUP BY symbol, YEAR(date)
 ),
@@ -20,10 +20,10 @@ yearly_returns AS (
         l.close AS last_close_of_year,
         (l.close - f.close) / f.close * 100 AS yearly_pct_change
     FROM yearly_dates m
-    JOIN yfinance_pipeline_dev.stocks_dataset.stocks_price_history_raw f
+    JOIN yfinance_pipeline_prod.stocks_dataset.stocks_price_history_raw f
         ON m.symbol = f.symbol
         AND m.first_day = f.date
-    JOIN yfinance_pipeline_dev.stocks_dataset.stocks_price_history_raw l
+    JOIN yfinance_pipeline_prod.stocks_dataset.stocks_price_history_raw l
         ON m.symbol = l.symbol
         AND m.last_day = l.date
 ),

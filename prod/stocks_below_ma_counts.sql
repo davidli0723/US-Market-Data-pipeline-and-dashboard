@@ -8,7 +8,7 @@ SELECT
     ma_250,
     -- Get the most recent record for each stock symbol
     ROW_NUMBER() OVER (PARTITION BY symbol ORDER BY date DESC) as rn
-FROM yfinance_pipeline_dev.stocks_dataset.stocks_price_history_with_ma
+FROM yfinance_pipeline_prod.stocks_dataset.stocks_price_history_with_ma
 )
 SELECT
     lp.date,

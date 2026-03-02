@@ -7,7 +7,7 @@ WITH base AS (
     (close - LAG(close) OVER (PARTITION BY symbol ORDER BY date))
       / LAG(close) OVER (PARTITION BY symbol ORDER BY date) * 100
       AS pct_change_close_1d
-  FROM yfinance_pipeline_dev.stocks_dataset.stocks_price_history_raw
+  FROM yfinance_pipeline_prod.stocks_dataset.stocks_price_history_raw
   WHERE date >= '2020-01-01'
 ),
 ranked AS (

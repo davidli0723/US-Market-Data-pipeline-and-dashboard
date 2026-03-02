@@ -6,4 +6,4 @@ SELECT
   AVG(close) OVER (PARTITION BY symbol ORDER BY date ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) AS ma_20,
   AVG(close) OVER (PARTITION BY symbol ORDER BY date ROWS BETWEEN 49 PRECEDING AND CURRENT ROW) AS ma_50,
   AVG(close) OVER (PARTITION BY symbol ORDER BY date ROWS BETWEEN 249 PRECEDING AND CURRENT ROW) AS ma_250
-FROM yfinance_pipeline_dev.stocks_dataset.stocks_price_history_raw;
+FROM yfinance_pipeline_prod.stocks_dataset.stocks_price_history_raw;
