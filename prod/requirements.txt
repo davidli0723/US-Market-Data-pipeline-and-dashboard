@@ -1,2 +1,3 @@
 yfinance
 pytickersymbols
+pandas_market_calendars
