@@ -22,8 +22,7 @@ This project provides a complete solution for collecting, processing, and visual
 - Scheduled and automated data updates
 - Historical data analysis
 - Market trend visualization
-- Performance metrics and KPIs
-- yfinance Python library as single data source and access
+- yfinance Python library as data source and access
 
 ## 🛠️ Tech Stack
 
