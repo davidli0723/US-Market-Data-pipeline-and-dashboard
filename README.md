@@ -32,3 +32,7 @@ This project provides a complete solution for collecting, processing, and visual
 - **PySpark** - Distributed data processing for large-scale stock data ETL
 - **SQL** - Data definition and querying for Dashboard
 - **Git** - Version control
+
+# Dashboard Static Pages
+
+[US Market Overview - Financial Performance Summary](Dashboard\ Static\ Pages/US\ Market\ Overview\ Prod\ -\ Financial\ Performance\ Summary.pdf)
