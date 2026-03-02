@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE yfinance_pipeline_dev.stocks_dataset.stocks_price_history_with_ma AS
+CREATE OR REPLACE TABLE yfinance_pipeline_prod.stocks_dataset.stocks_price_history_with_ma AS
 SELECT
   *,
   AVG(close) OVER (PARTITION BY symbol ORDER BY date ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) AS ma_5,
