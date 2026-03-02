@@ -29,6 +29,6 @@ This project provides a complete solution for collecting, processing, and visual
 
 - **Python 3.8+** - Core data pipeline language
 - **Pandas** - Data manipulation and analysis
-- **PySpark** - 
-- **SQL** - 
+- **PySpark** - Distributed data processing for large-scale stock data ETL
+- **SQL** - Data definition and querying for Dashboard
 - **Git** - Version control
