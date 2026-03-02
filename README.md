@@ -35,10 +35,18 @@ This project provides a complete solution for collecting, processing, and visual
 
 # Dashboard Static Pages
 
-[US Market Overview PDF](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Financial%20Performance%20Summary.pdf)
+[Financial Performance Summary](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Financial%20Performance%20Summary.pdf)
 
-[US Market Overview PDF](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Stock%20Dataset%20Background.pdf)
+[Stock Dataset Background](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Stock%20Dataset%20Background.pdf)
 
-[US Market Overview PDF](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Stock%20Financial%20Statements.pdf)
+[Stock Financial Statements](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Stock%20Financial%20Statements.pdf)
 
-[US Market Overview PDF](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Stock%20Price%20Movement%20Analysis.pdf)
+[Stock Price Movement Analysis](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Stock%20Price%20Movement%20Analysis.pdf)
+
+## Databricks Dashboard
+
+You can explore the live dashboard on Databricks to interact with the charts and data:  
+
+[Access US Market Overview Dashboard](https://dbc-d3a625a7-b228.cloud.databricks.com/dashboardsv3/01f115f104da1cbfa38173ad64e13de7/published?o=552389576104321)  
+
+> **Note:** A Databricks account is required to view the dashboard.
