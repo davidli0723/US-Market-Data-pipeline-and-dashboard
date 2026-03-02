@@ -7,6 +7,8 @@ A comprehensive data pipeline and visualization solution for analyzing US market
 - [Project Overview](#project-overview)
 - [Key Features](#key-features)
 - [Tech Stack](#tech-stack)
+- [Dashboard Static Pages](#dashboard-static-pages)
+- [Databricks Dashboard](#databricks-dashboard)
 
 ## 🎯 Project Overview
 
