@@ -1,0 +1,2308 @@
+{
+  "datasets": [
+    {
+      "name": "8caf9e18",
+      "displayName": "stocks_price_history_first_page",
+      "queryLines": [
+        "SELECT * FROM yfinance_pipeline_prod.stocks_dataset.stocks_price_history_raw WHERE date >= DATE('2020-02-16')"
+      ],
+      "catalog": "yfinance_pipeline_dashboard",
+      "schema": "stock_datasets"
+    },
+    {
+      "name": "493def73",
+      "displayName": "stocks_info",
+      "queryLines": [
+        "SELECT * FROM yfinance_pipeline_prod.stocks_dataset.stocks_info"
+      ]
+    },
+    {
+      "name": "2df2ddcb",
+      "displayName": "stock_price_versus_ma50",
+      "queryLines": [
+        "select * \n",
+        "from yfinance_pipeline_prod.stocks_dataset.stocks_below_ma_counts"
+      ],
+      "catalog": "yfinance_pipeline_dashboard",
+      "schema": "stock_datasets"
+    },
+    {
+      "name": "b638f0d0",
+      "displayName": "stock_price_single_stock",
+      "queryLines": [
+        "SELECT\n",
+        "  *\n",
+        "FROM yfinance_pipeline_prod.stocks_dataset.stocks_price_history_with_ma \n",
+        "WHERE date >= :date_param"
+      ],
+      "parameters": [
+        {
+          "displayName": "date_param",
+          "keyword": "date_param",
+          "dataType": "STRING",
+          "defaultSelection": {
+            "values": {
+              "dataType": "STRING",
+              "values": [
+                {
+                  "value": "2010-02-16"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "606a3e92",
+      "displayName": "index_price",
+      "queryLines": [
+        "select * from yfinance_pipeline_prod.stocks_dataset.indexes_price_history where date >= \"2020-01-01\""
+      ]
+    },
+    {
+      "name": "e0424d84",
+      "displayName": "stock_price_change_pct",
+      "queryLines": [
+        "SELECT *\n",
+        "FROM yfinance_pipeline_prod.stocks_dataset.stocks_daily_return\n",
+        "WHERE gain_rank <= 10\n",
+        "   OR loss_rank <= 10"
+      ]
+    },
+    {
+      "name": "675cfdc5",
+      "displayName": "Monthly Performance Insights",
+      "queryLines": [
+        "SELECT\n",
+        "    *\n",
+        "FROM yfinance_pipeline_prod.stocks_dataset.stocks_monthly_return\n",
+        "WHERE gain_rank <= 10 or loss_rank <= 10"
+      ]
+    },
+    {
+      "name": "ef1e1624",
+      "displayName": "Annual Stock Performance Metrics",
+      "queryLines": [
+        "SELECT *\n",
+        "FROM yfinance_pipeline_prod.stocks_dataset.stocks_annual_return\n",
+        "WHERE gain_rank <= 10 or loss_rank <= 10"
+      ]
+    },
+    {
+      "name": "02d4ab85",
+      "displayName": "balance_sheet",
+      "queryLines": [
+        "SELECT\n",
+        "    symbol,\n",
+        "    metrics,\n",
+        "    -- MAX(CASE WHEN date BETWEEN '2024-07-01' AND '2024-09-30' THEN value END) AS Q3_2024,\n",
+        "    MAX(CASE WHEN date BETWEEN '2024-10-01' AND '2024-12-31' THEN value END) AS Q4_2024,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-01-01' AND '2025-03-31' THEN value END) AS Q1_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-04-01' AND '2025-06-30' THEN value END) AS Q2_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-07-01' AND '2025-09-30' THEN value END) AS Q3_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-10-01' AND '2025-12-31' THEN value END) AS Q4_2025\n",
+        "FROM yfinance_pipeline_prod.stocks_dataset.balance_sheet\n",
+        "-- where symbol = \"AMZN\"\n",
+        "GROUP BY symbol, metrics\n",
+        "-- ORDER BY symbol, metrics;"
+      ]
+    },
+    {
+      "name": "36d9d054",
+      "displayName": "income_statement",
+      "queryLines": [
+        "SELECT\n",
+        "    symbol,\n",
+        "    metrics,\n",
+        "    -- MAX(CASE WHEN date BETWEEN '2024-07-01' AND '2024-09-30' THEN value END) AS Q3_2024,\n",
+        "    MAX(CASE WHEN date BETWEEN '2024-10-01' AND '2024-12-31' THEN value END) AS Q4_2024,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-01-01' AND '2025-03-31' THEN value END) AS Q1_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-04-01' AND '2025-06-30' THEN value END) AS Q2_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-07-01' AND '2025-09-30' THEN value END) AS Q3_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-10-01' AND '2025-12-31' THEN value END) AS Q4_2025\n",
+        "FROM yfinance_pipeline_prod.stocks_dataset.income_statement\n",
+        "-- where symbol = \"AMZN\"\n",
+        "GROUP BY symbol, metrics\n",
+        "-- ORDER BY symbol, metrics;"
+      ]
+    },
+    {
+      "name": "72fea072",
+      "displayName": "cashflow",
+      "queryLines": [
+        "SELECT\n",
+        "    symbol,\n",
+        "    metrics,\n",
+        "    -- MAX(CASE WHEN date BETWEEN '2024-07-01' AND '2024-09-30' THEN value END) AS Q3_2024,\n",
+        "    MAX(CASE WHEN date BETWEEN '2024-10-01' AND '2024-12-31' THEN value END) AS Q4_2024,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-01-01' AND '2025-03-31' THEN value END) AS Q1_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-04-01' AND '2025-06-30' THEN value END) AS Q2_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-07-01' AND '2025-09-30' THEN value END) AS Q3_2025,\n",
+        "    MAX(CASE WHEN date BETWEEN '2025-10-01' AND '2025-12-31' THEN value END) AS Q4_2025\n",
+        "FROM yfinance_pipeline_prod.stocks_dataset.cash_flow\n",
+        "-- where symbol = \"AMZN\"\n",
+        "GROUP BY symbol, metrics\n",
+        "-- ORDER BY symbol, metrics;"
+      ]
+    },
+    {
+      "name": "10900080",
+      "displayName": "stock_price_history_last_page",
+      "queryLines": [
+        "SELECT * FROM yfinance_pipeline_prod.stocks_dataset.stocks_price_history_raw WHERE date >= DATE('2020-02-16')"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "5d856f4b",
+      "displayName": "Stocks Price Movement Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "b34bd869",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "8caf9e18",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "close",
+                      "expression": "`close`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Closing Price Trend",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "date",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "close",
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 2
+                    },
+                    "abbreviation": "none"
+                  },
+                  "displayName": "Close Price",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "symbol",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Symbol",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "TSLA",
+                        "color": "#01FF1B"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 10,
+            "height": 10
+          }
+        },
+        {
+          "widget": {
+            "name": "symbol_filter",
+            "queries": [
+              {
+                "name": "dashboards/01f10bdd2e351a59afebf860ea78facf/datasets/01f10bdd4b79108fb43aac0c87b41d66_symbol",
+                "query": {
+                  "datasetName": "8caf9e18",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "symbol_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Stock Symbol Filter",
+                "showTitle": true
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "STRING",
+                    "values": [
+                      {
+                        "value": "META"
+                      },
+                      {
+                        "value": "NFLX"
+                      },
+                      {
+                        "value": "MSFT"
+                      },
+                      {
+                        "value": "NVDA"
+                      },
+                      {
+                        "value": "GOOGL"
+                      },
+                      {
+                        "value": "TSLA"
+                      },
+                      {
+                        "value": "AAPL"
+                      }
+                    ]
+                  }
+                }
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "symbol",
+                    "queryName": "dashboards/01f10bdd2e351a59afebf860ea78facf/datasets/01f10bdd4b79108fb43aac0c87b41d66_symbol"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "date_range_filter",
+            "queries": [
+              {
+                "name": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db1483b987c11acedf557a_date",
+                "query": {
+                  "datasetName": "8caf9e18",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Date Range Filter",
+                "showTitle": true
+              },
+              "selection": {
+                "defaultSelection": {
+                  "range": {
+                    "dataType": "DATE",
+                    "min": {
+                      "value": "2021-03-01T00:00:00.000"
+                    },
+                    "max": {
+                      "value": "2026-02-27T00:00:00.000"
+                    }
+                  }
+                }
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "date",
+                    "queryName": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db1483b987c11acedf557a_date"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "95d2554c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2df2ddcb",
+                  "fields": [
+                    {
+                      "name": "daily(date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    },
+                    {
+                      "name": "total_stocks",
+                      "expression": "`total_stocks`"
+                    },
+                    {
+                      "name": "count_below_ma50",
+                      "expression": "`count_below_ma50`"
+                    }
+                  ],
+                  "disaggregated": true,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Stocks with Close < MA50 (Single Date)",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "count_below_ma50",
+                  "style": {
+                    "rules": [
+                      {
+                        "condition": {
+                          "operand": {
+                            "type": "data-value",
+                            "value": "200"
+                          },
+                          "operator": ">="
+                        },
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 4
+                        }
+                      },
+                      {
+                        "condition": {
+                          "operand": {
+                            "type": "data-value",
+                            "value": "200"
+                          },
+                          "operator": "<"
+                        },
+                        "color": "#00A972"
+                      }
+                    ]
+                  }
+                },
+                "target": {
+                  "fieldName": "total_stocks",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "period": {
+                    "type": "relative-to-value-period",
+                    "offset": 0
+                  }
+                },
+                "period": {
+                  "fieldName": "daily(date)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 3,
+            "width": 2,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "date_filter_single",
+            "queries": [
+              {
+                "name": "dashboards/01f10bdd2e351a59afebf860ea78facf/datasets/01f10c0e0f6b1689ba43c04895516e48_date",
+                "query": {
+                  "datasetName": "2df2ddcb",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Date Filter (Single Date)",
+                "showTitle": true
+              },
+              "widgetType": "filter-date-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "date",
+                    "queryName": "dashboards/01f10bdd2e351a59afebf860ea78facf/datasets/01f10c0e0f6b1689ba43c04895516e48_date"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 2,
+            "width": 2,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "d71d383d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b638f0d0",
+                  "fields": [
+                    {
+                      "name": "daily(date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    },
+                    {
+                      "name": "volume",
+                      "expression": "`volume`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 1
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "volume",
+                  "axis": {
+                    "hideGrid": false,
+                    "hideLabels": false
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "scale": {
+                    "type": "quantitative",
+                    "reverse": false
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 22,
+            "width": 10,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "cacc2e42",
+            "queries": [
+              {
+                "name": "dashboards/01f11540f9dc133da02dd53fa9f2f0cc/datasets/01f11540f9dc1696a4c54882ed48a7b3_symbol",
+                "query": {
+                  "datasetName": "b638f0d0",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "symbol_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "disallowAll": true,
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "STRING",
+                    "values": [
+                      {
+                        "value": "GS"
+                      }
+                    ]
+                  }
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "symbol",
+                    "queryName": "dashboards/01f11540f9dc133da02dd53fa9f2f0cc/datasets/01f11540f9dc1696a4c54882ed48a7b3_symbol"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 13,
+            "width": 5,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "9f6d9bfa",
+            "queries": [
+              {
+                "name": "dashboards/01f11540f9dc133da02dd53fa9f2f0cc/datasets/01f11540f9dc1696a4c54882ed48a7b3_date",
+                "query": {
+                  "datasetName": "b638f0d0",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Date Range Filter",
+                "showTitle": true
+              },
+              "selection": {
+                "defaultSelection": {
+                  "range": {
+                    "dataType": "DATE",
+                    "min": {
+                      "value": "2022-03-01T00:00:00.000"
+                    },
+                    "max": {
+                      "value": "2026-02-27T23:59:59.999"
+                    }
+                  }
+                }
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "date",
+                    "queryName": "dashboards/01f11540f9dc133da02dd53fa9f2f0cc/datasets/01f11540f9dc1696a4c54882ed48a7b3_date"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 13,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "c47b9a9a",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b638f0d0",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "close",
+                      "expression": "`close`"
+                    },
+                    {
+                      "name": "ma_50",
+                      "expression": "`ma_50`"
+                    },
+                    {
+                      "name": "ma_250",
+                      "expression": "`ma_250`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "close"
+                    },
+                    {
+                      "fieldName": "ma_50"
+                    },
+                    {
+                      "fieldName": "ma_250"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 10,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "1f3555e6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "606a3e92",
+                  "fields": [
+                    {
+                      "name": "daily(date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    },
+                    {
+                      "name": "close",
+                      "expression": "`close`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`symbol` IN ('^DJI')"
+                    }
+                  ],
+                  "disaggregated": true,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "DowJones Index",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "close",
+                  "style": {
+                    "bold": true
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "all"
+                    },
+                    "significantFigures": {
+                      "type": "max",
+                      "figures": 3
+                    },
+                    "hideGroupSeparator": false
+                  },
+                  "displayName": "close"
+                },
+                "target": {
+                  "fieldName": "close",
+                  "period": {
+                    "type": "relative-to-value-period",
+                    "offset": -1
+                  },
+                  "change": {
+                    "type": "percent"
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    },
+                    "significantFigures": {
+                      "type": "all"
+                    }
+                  }
+                },
+                "period": {
+                  "fieldName": "daily(date)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 8,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "85be2c5b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "606a3e92",
+                  "fields": [
+                    {
+                      "name": "daily(date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    },
+                    {
+                      "name": "close",
+                      "expression": "`close`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`symbol` IN ('^GSPC')"
+                    }
+                  ],
+                  "disaggregated": true,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "S&P500 index",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "close",
+                  "style": {
+                    "bold": true
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "all"
+                    },
+                    "significantFigures": {
+                      "type": "max",
+                      "figures": 3
+                    },
+                    "hideGroupSeparator": false
+                  },
+                  "displayName": "close"
+                },
+                "target": {
+                  "fieldName": "close",
+                  "period": {
+                    "type": "relative-to-value-period",
+                    "offset": -1
+                  },
+                  "change": {
+                    "type": "percent"
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    },
+                    "significantFigures": {
+                      "type": "all"
+                    }
+                  }
+                },
+                "period": {
+                  "fieldName": "daily(date)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 14,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "4960fc31",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "606a3e92",
+                  "fields": [
+                    {
+                      "name": "daily(date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    },
+                    {
+                      "name": "close",
+                      "expression": "`close`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`symbol` IN ('^NDX')"
+                    }
+                  ],
+                  "disaggregated": true,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Nasdaq Index",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "close",
+                  "style": {
+                    "bold": true
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "exact",
+                      "places": 2
+                    },
+                    "significantFigures": {
+                      "type": "all"
+                    },
+                    "hideGroupSeparator": false
+                  },
+                  "displayName": "close"
+                },
+                "target": {
+                  "fieldName": "close",
+                  "period": {
+                    "type": "relative-to-value-period",
+                    "offset": -1
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    },
+                    "significantFigures": {
+                      "type": "all"
+                    }
+                  },
+                  "change": {
+                    "type": "percent"
+                  }
+                },
+                "period": {
+                  "fieldName": "daily(date)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 20,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "c6c2b8e7",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# <span style=\"font-size: 60px;line-height: 1.5;\">**Stocks Price Movement Analysis**</span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "6359d210",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "b873228c",
+            "queries": [
+              {
+                "name": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db150f8ca54adb55a509e9_symbol",
+                "query": {
+                  "datasetName": "10900080",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "symbol_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db14fba346bbcc8e221db8_symbol",
+                "query": {
+                  "datasetName": "02d4ab85",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "symbol_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db15019b252d9df096c8f7_symbol",
+                "query": {
+                  "datasetName": "36d9d054",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "symbol_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db15099f420360965287b6_symbol",
+                "query": {
+                  "datasetName": "72fea072",
+                  "fields": [
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    },
+                    {
+                      "name": "symbol_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "disallowAll": true,
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "STRING",
+                    "values": [
+                      {
+                        "value": "CSCO"
+                      }
+                    ]
+                  }
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "symbol",
+                    "queryName": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db150f8ca54adb55a509e9_symbol"
+                  },
+                  {
+                    "fieldName": "symbol",
+                    "queryName": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db14fba346bbcc8e221db8_symbol"
+                  },
+                  {
+                    "fieldName": "symbol",
+                    "queryName": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db15019b252d9df096c8f7_symbol"
+                  },
+                  {
+                    "fieldName": "symbol",
+                    "queryName": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db15099f420360965287b6_symbol"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "570c5735",
+      "displayName": "Financial Performance Summary",
+      "layout": [
+        {
+          "widget": {
+            "name": "d3f2f002",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e0424d84",
+                  "fields": [
+                    {
+                      "name": "pct_change_close_1d",
+                      "expression": "`pct_change_close_1d`"
+                    },
+                    {
+                      "name": "close",
+                      "expression": "`close`"
+                    },
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "top 10 daily gains and losses"
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 1
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "symbol",
+                  "axis": {
+                    "hideLabels": false,
+                    "hideTitle": false
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "pct_change_close_1d",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "pct_change_close_1d",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "custom-diverging",
+                      "colors": {
+                        "start": "#FF0000",
+                        "mid": "#FFFF00",
+                        "end": "#008000"
+                      }
+                    }
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "showTotal": false
+                },
+                "extra": [
+                  {
+                    "fieldName": "close"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 12,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "ff5be874",
+            "queries": [
+              {
+                "name": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db14e0ad92780d5b41d6cb_date",
+                "query": {
+                  "datasetName": "e0424d84",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "DATE",
+                    "values": [
+                      {
+                        "value": "2026-02-27T00:00:00.000"
+                      }
+                    ]
+                  }
+                }
+              },
+              "widgetType": "filter-date-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "date",
+                    "queryName": "dashboards/01f115f104da1cbfa38173ad64e13de7/datasets/01f115f104db14e0ad92780d5b41d6cb_date"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "fe075457",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "675cfdc5",
+                  "fields": [
+                    {
+                      "name": "monthly_pct_change",
+                      "expression": "`monthly_pct_change`"
+                    },
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": "top 10 monthly gains and losses"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "symbol",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "monthly_pct_change",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "monthly_pct_change",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "redyellowgreen"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "showTotal": false
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 12,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "1b088a30",
+            "queries": [
+              {
+                "name": "dashboards/01f11540f9dc133da02dd53fa9f2f0cc/datasets/01f11540f9dc16b0b70f42f6e794f507_monthly(month_date)",
+                "query": {
+                  "datasetName": "675cfdc5",
+                  "fields": [
+                    {
+                      "name": "monthly(month_date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `month_date`)"
+                    },
+                    {
+                      "name": "monthly(month_date)_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "DATETIME",
+                    "values": [
+                      {
+                        "value": "2026-02-01T00:00:00.000"
+                      }
+                    ]
+                  }
+                }
+              },
+              "widgetType": "filter-date-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "monthly(month_date)",
+                    "displayName": "MONTHLY(month_date)",
+                    "queryName": "dashboards/01f11540f9dc133da02dd53fa9f2f0cc/datasets/01f11540f9dc16b0b70f42f6e794f507_monthly(month_date)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "6f3436f1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ef1e1624",
+                  "fields": [
+                    {
+                      "name": "yearly_pct_change",
+                      "expression": "`yearly_pct_change`"
+                    },
+                    {
+                      "name": "symbol",
+                      "expression": "`symbol`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "top 10 annual gains and losses"
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "symbol",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "yearly_pct_change",
+                  "scale": {
+                    "type": "quantitative",
+                    "domain": {
+                      "min": -60
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "yearly_pct_change",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "redyellowgreen"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "showTotal": false,
+                  "text": {
+                    "fieldName": "yearly_pct_change"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 19,
+            "width": 12,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "68c284d9",
+            "queries": [
+              {
+                "name": "dashboards/01f11540f9dc133da02dd53fa9f2f0cc/datasets/01f11540f9dc16b4915d7c8b8c56271e_year",
+                "query": {
+                  "datasetName": "ef1e1624",
+                  "fields": [
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    },
+                    {
+                      "name": "year_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "INTEGER",
+                    "values": [
+                      {
+                        "value": "2026"
+                      }
+                    ]
+                  }
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "year",
+                    "queryName": "dashboards/01f11540f9dc133da02dd53fa9f2f0cc/datasets/01f11540f9dc16b4915d7c8b8c56271e_year"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 18,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "0a7a52a4",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# <span style=\"font-size: 60px;line-height: 1.5;\">Financial Performance Summary</span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "86978517",
+      "displayName": "Stock Financial Statements",
+      "layout": [
+        {
+          "widget": {
+            "name": "e082a6f6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "02d4ab85",
+                  "fields": [
+                    {
+                      "name": "metrics",
+                      "expression": "`metrics`"
+                    },
+                    {
+                      "name": "Q4_2025",
+                      "expression": "`Q4_2025`"
+                    },
+                    {
+                      "name": "Q3_2025",
+                      "expression": "`Q3_2025`"
+                    },
+                    {
+                      "name": "Q2_2025",
+                      "expression": "`Q2_2025`"
+                    },
+                    {
+                      "name": "Q1_2025",
+                      "expression": "`Q1_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "displayRowNumbers": true,
+              "rowsPerPage": 16,
+              "frame": {
+                "showTitle": false
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "metrics"
+                  },
+                  {
+                    "fieldName": "Q4_2025"
+                  },
+                  {
+                    "fieldName": "Q3_2025"
+                  },
+                  {
+                    "fieldName": "Q2_2025"
+                  },
+                  {
+                    "fieldName": "Q1_2025"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 6,
+            "height": 11
+          }
+        },
+        {
+          "widget": {
+            "name": "07bb452c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "36d9d054",
+                  "fields": [
+                    {
+                      "name": "metrics",
+                      "expression": "`metrics`"
+                    },
+                    {
+                      "name": "Q4_2025",
+                      "expression": "`Q4_2025`"
+                    },
+                    {
+                      "name": "Q3_2025",
+                      "expression": "`Q3_2025`"
+                    },
+                    {
+                      "name": "Q2_2025",
+                      "expression": "`Q2_2025`"
+                    },
+                    {
+                      "name": "Q1_2025",
+                      "expression": "`Q1_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "displayRowNumbers": true,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "metrics"
+                  },
+                  {
+                    "fieldName": "Q4_2025"
+                  },
+                  {
+                    "fieldName": "Q3_2025"
+                  },
+                  {
+                    "fieldName": "Q2_2025"
+                  },
+                  {
+                    "fieldName": "Q1_2025"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 6,
+            "height": 10
+          }
+        },
+        {
+          "widget": {
+            "name": "059920e7",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "72fea072",
+                  "fields": [
+                    {
+                      "name": "metrics",
+                      "expression": "`metrics`"
+                    },
+                    {
+                      "name": "Q4_2025",
+                      "expression": "`Q4_2025`"
+                    },
+                    {
+                      "name": "Q3_2025",
+                      "expression": "`Q3_2025`"
+                    },
+                    {
+                      "name": "Q2_2025",
+                      "expression": "`Q2_2025`"
+                    },
+                    {
+                      "name": "Q1_2025",
+                      "expression": "`Q1_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "displayRowNumbers": true,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "metrics"
+                  },
+                  {
+                    "fieldName": "Q4_2025"
+                  },
+                  {
+                    "fieldName": "Q3_2025"
+                  },
+                  {
+                    "fieldName": "Q2_2025"
+                  },
+                  {
+                    "fieldName": "Q1_2025"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 15,
+            "width": 6,
+            "height": 10
+          }
+        },
+        {
+          "widget": {
+            "name": "da1cf6da",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "10900080",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "close",
+                      "expression": "`close`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "close",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 11
+          }
+        },
+        {
+          "widget": {
+            "name": "d6da24bc",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# <span style=\"font-size: 60px;line-height: 1.5;\">Stock Financial Statements</span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "f75eb785",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# IBM Stock Price"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "23e26f27",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Balance Sheet"
+              ]
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "02a456c3",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Income Statement"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "c4757204",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Cashflow"
+              ]
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 14,
+            "width": 6,
+            "height": 1
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "7eebe6e0",
+      "displayName": "Stock Dataset Background",
+      "layout": [
+        {
+          "widget": {
+            "name": "be7d1480",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "493def73",
+                  "fields": [
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Total Number of Stocks in Dashboard"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "count(*)",
+                  "style": {
+                    "bold": true,
+                    "color": {
+                      "themeColorType": "visualizationColors",
+                      "position": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "2f501f07",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "493def73",
+                  "fields": [
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    },
+                    {
+                      "name": "sector",
+                      "expression": "`sector`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Stock Count by Industry",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "count(*)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "sector",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Industry",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Basic Materials",
+                        "color": "#12D612"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "text": {
+                    "fieldName": "count(*)"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 4,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "7d1780d6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "493def73",
+                  "fields": [
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    },
+                    {
+                      "name": "industry",
+                      "expression": "`industry`"
+                    },
+                    {
+                      "name": "sector",
+                      "expression": "`sector`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "facet": {
+                "type": "wrap",
+                "fieldName": "sector",
+                "scale": {
+                  "type": "categorical"
+                }
+              },
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Stock Count by Sector"
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "count(*)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "industry",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "text": {
+                    "fieldName": "count(*)"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 2,
+            "width": 4,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "31525b66",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Stock Dataset Background"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
