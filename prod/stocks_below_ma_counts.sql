@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE yfinance_pipeline_dev.stocks_dataset.stocks_below_ma_counts AS
+CREATE OR REPLACE TABLE yfinance_pipeline_prod.stocks_dataset.stocks_below_ma_counts AS
 with LatestPrices as (
 SELECT 
     symbol,

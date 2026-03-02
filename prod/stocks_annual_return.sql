@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE yfinance_pipeline_dev.stocks_dataset.stocks_annual_return AS
+CREATE OR REPLACE TABLE yfinance_pipeline_prod.stocks_dataset.stocks_annual_return AS
 WITH yearly_dates AS (
     SELECT
         symbol,
