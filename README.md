@@ -35,4 +35,4 @@ This project provides a complete solution for collecting, processing, and visual
 
 # Dashboard Static Pages
 
-[US Market Overview - Financial Performance Summary](Dashboard\ Static\ Pages/US\ Market\ Overview\ Prod\ -\ Financial\ Performance\ Summary.pdf)
+[US Market Overview PDF](Dashboard%20Static%20Pages/US%20Market%20Overview%20Prod%20-%20Financial%20Performance%20Summary.pdf)
